@@ -6,10 +6,11 @@ int main() {
 
     dtd = DTDinList( FileinString(dtdPath), dtd);
 
-    attributesInList(dtd,FileinString(dtdPath));
-    if ( dtd->attributes == NULL ){
-        printf("Becca is a clown\n");
+    if ( !attributesInList(dtd,FileinString(dtdPath)) ){
+        printf("Les attributs ne sont pas au bon format ou ne correspondent à aucune balise existante\n");
+        return EXIT_FAILURE;
     }
+
     //printDTD(dtd);
     freeDTD(dtd);
 

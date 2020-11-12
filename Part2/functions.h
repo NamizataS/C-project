@@ -160,10 +160,22 @@ bool attributesInList( DTD *dtd, char *string );
  * to add the attributes in the list. Return true if it was successful and false if it isn't
  */
 
-bool insertAttribute( DTD *dtd, char *element, char *name, char *type, char *status);
+Attributes *newAttribute( char *name, char *type, char *status );
+/*
+ * create a new attribute
+ */
+
+Attributes *newEnumeratedAttribute( char *name, char *values, char *status );
+
+bool attributeisValid( DTD *dtd, char *element, Attributes *newAttribute );
 /*
  * check if the element is really in the dtd and insert the attribute and return true if it is
  * function used when it isn't an enumerated attribute
+ */
+
+void insertAttribute( Attributes *attribute, Attributes *insert );
+/*
+ *
  */
 
 bool insertEnumeratedAttribute( DTD *dtd, char *element, char *name, char *values, char *status);

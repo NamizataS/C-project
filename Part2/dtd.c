@@ -26,6 +26,7 @@ DTD *DTDinList( char *string, DTD *dtd ){
             dtd = malloc(sizeof(DTD));
             dtd->name = elementName;
             dtd->type = ELEMENT;
+            dtd->attributes = NULL;
             dtd->child = malloc(sizeof(DTD));
             dtd->child = DTDinList(strRemove(string,tag),dtd->child);
         } else{
@@ -37,6 +38,7 @@ DTD *DTDinList( char *string, DTD *dtd ){
             } else{
                 dtd->type = ELEMENT;
             }
+            dtd->attributes = NULL;
             dtd->sibling = malloc(sizeof(DTD));
             dtd->sibling = DTDinList(strRemove(string,tag),dtd->sibling);
         }
@@ -65,9 +67,10 @@ bool attributesInList( DTD *dtd, char *string ){
     }
 
     if ( strstr( tag, "!ATTLIST" ) != NULL ){
+
         strRemove(string,"<!ATTLIST ");
         strRemove(tag, "<!ATTLIST ");
-        char *tagr = tag;
+        strRemove(string,tag);
         char *element = extractUntil( tag, ' ' );
         strRemove(tag,element);
         if ( strchr(tag,'|') == NULL ){
@@ -79,8 +82,8 @@ bool attributesInList( DTD *dtd, char *string ){
             if ( status == NULL ){
                 status = tag;
                 removeChar(status,'>');
-                if ( insertAttribute(dtd, element, name, type, status) ){
-                    return attributesInList( dtd, strRemove(string,tagr) );
+                if ( attributeisValid( dtd, element,newAttribute(name,type,status) ) ){
+                    return attributesInList( dtd, string );
                 }
             }
 
@@ -100,34 +103,63 @@ bool attributesInList( DTD *dtd, char *string ){
         }
     }
 
-
     return false;
 }
 
-bool insertAttribute( DTD *dtd, char *element, char *name, char *type, char *status){
+Attributes *newAttribute( char *name, char *type, char *status ){
 
-    removeSpaceandTab(element);
+    Attributes *attribute = malloc(sizeof(Attributes));
     removeSpaceandTab(name);
     removeSpaceandTab(type);
     removeSpaceandTab(status);
+    attribute->name = name;
+    attribute->type = getType(type);
+    attribute->status = getStatus(status);
+    attribute->next = NULL;
+
+    return attribute;
+}
+
+bool attributeisValid( DTD *dtd, char *element, Attributes *newAttribute ){
+
+    removeSpaceandTab(element);
 
     while ( dtd && dtd->name ){
         if ( strcmp(dtd->name,element) == 0 ){
-            dtd->attributes = malloc(sizeof(Attributes));
-            dtd->attributes->name = name;
-            dtd->attributes->type = getType(type);
-            dtd->attributes->status = getStatus(status);
+            if ( dtd->attributes == NULL ){
+                dtd->attributes = newAttribute;
+                return true;
+            }
+            Attributes *current = dtd->attributes;
+            while ( current->next != NULL ){
+                current = current->next;
+            }
+            current->next = newAttribute;
+
             return true;
         }
-        if (dtd->child != NULL ){
+        if ( dtd->child != NULL ){
             dtd = dtd->child;
-        } else{
+        } else {
             dtd = dtd->sibling;
         }
+
     }
     return false;
 }
 
+
+void insertAttribute( Attributes *attribute, Attributes *insert ){
+    Attributes *tmp = attribute;
+    if (attribute == NULL ){
+        attribute = insert;
+        return;
+    }
+    while ( tmp->next != NULL ){
+        tmp = tmp->next;
+    }
+    tmp->next = insert;
+}
 contentType getType( char *type ){
 
     if ( strcmp(type,"CDATA") == 0 ){

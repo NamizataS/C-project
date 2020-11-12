@@ -127,7 +127,7 @@ bool checkEnd( char *tag ){
 }
 
 void removeChar( char *string, char c ){
-    if (string != NULL ){
+    if (string != NULL && strchr(string,c) != NULL ){
         char *pr = string, *pw = string;
         while ( *pr ){
             *pw = *pr++;
