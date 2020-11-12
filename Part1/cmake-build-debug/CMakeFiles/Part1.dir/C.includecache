@@ -1,0 +1,38 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/dtd.c
+functions.h
+/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/functions.h
+
+/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/functions.c
+functions.h
+/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/functions.h
+
+/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/functions.h
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+stdbool.h
+-
+ctype.h
+-
+assert.h
+-
+
+/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/main.c
+functions.h
+/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/functions.h
+
+/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/xml.c
+functions.h
+/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/functions.h
+

@@ -1,0 +1,5 @@
+<!DOCTYPE RECIPE [
+        <!ELEMENT recipe (cake+,ingredient*)>
+        <!ELEMENT cake (#PCDATA)>
+        <!ELEMENT ingredient (#PCDATA)>
+]>

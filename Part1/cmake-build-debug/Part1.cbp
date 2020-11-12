@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="Part1"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Part1">
+				<Option output="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Part1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/11.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 Part1"/>
+					<CompileFile command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="Part1/fast">
+				<Option output="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Part1" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/lib/clang/11.0.0/include"/>
+					<Add directory="/Library/Developer/CommandLineTools/usr/include"/>
+					<Add directory="/System/Library/Frameworks"/>
+					<Add directory="/Library/Frameworks"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 Part1/fast"/>
+					<CompileFile command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/local/bin/gmake -j8 -f &quot;/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/dtd.c">
+			<Option target="Part1"/>
+		</Unit>
+		<Unit filename="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/functions.c">
+			<Option target="Part1"/>
+		</Unit>
+		<Unit filename="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/functions.h">
+			<Option target="Part1"/>
+		</Unit>
+		<Unit filename="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/main.c">
+			<Option target="Part1"/>
+		</Unit>
+		<Unit filename="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/xml.c">
+			<Option target="Part1"/>
+		</Unit>
+		<Unit filename="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part1/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>
