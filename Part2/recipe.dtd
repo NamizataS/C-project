@@ -2,6 +2,6 @@
         <!ELEMENT recipe (cake+)>
         <!ELEMENT cake (#PCDATA)>
 
-        <!ATTLIST cake quantity CDATA #REQUIRED>
+        <!ATTLIST cake quantity (10|20|30) "30">
         <!ATTLIST cake weight CDATA #IMPLIED>
 ]>

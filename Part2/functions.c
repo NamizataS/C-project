@@ -82,6 +82,7 @@ char *strRemove(char *string, char *subString) {
     return NULL;
 }
 
+
 char *FileinString( char *filename ){
     //open the file and stock the content in buffer
     FILE *pf = openFile( filename );

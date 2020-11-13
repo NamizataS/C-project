@@ -109,6 +109,7 @@ char *strRemove(char *string, char *subString);
  * remove a substring from a string
  */
 
+char *removeSub( char *string, char *subString );
 
 char *FileinString( char *filename );
 /*
@@ -165,7 +166,15 @@ Attributes *newAttribute( char *name, char *type, char *status );
  * create a new attribute
  */
 
-Attributes *newEnumeratedAttribute( char *name, char *values, char *status );
+Attributes *newEnumeratedAttribute( char *name, Values *values );
+/*
+ * create a new enumerated attribute
+ */
+
+bool updateStatus( char *status, Values *values );
+/*
+ *
+ */
 
 bool attributeisValid( DTD *dtd, char *element, Attributes *newAttribute );
 /*
@@ -173,9 +182,19 @@ bool attributeisValid( DTD *dtd, char *element, Attributes *newAttribute );
  * function used when it isn't an enumerated attribute
  */
 
-void insertAttribute( Attributes *attribute, Attributes *insert );
+bool enumeratedAttributeisValid( DTD *dtd, char *element, Attributes *newAttribute );
 /*
  *
+ */
+
+Values *getValues( char *values, Values *newValues );
+/*
+ * create a new linked list values
+ */
+
+Values *newValues( char *name );
+/*
+ * create a new Values
  */
 
 bool insertEnumeratedAttribute( DTD *dtd, char *element, char *name, char *values, char *status);

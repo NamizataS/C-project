@@ -85,6 +85,8 @@ bool attributesInList( DTD *dtd, char *string ){
                 if ( attributeisValid( dtd, element,newAttribute(name,type,status) ) ){
                     return attributesInList( dtd, string );
                 }
+            } else{
+
             }
 
         } else{
@@ -92,13 +94,14 @@ bool attributesInList( DTD *dtd, char *string ){
             strRemove( tag, name);
             char *values = extractUntil(tag, ')' );
             strRemove(tag,values);
+            Values *value = malloc( sizeof(Values));
             char *status = extractUntil(tag,' ' );
-            if ( status == NULL ){
+            if ( strlen(status) == 1 ){
                 status = tag;
                 removeChar(status,'>');
-                /*if (insertEnumeratedAttribute( dtd, element, name, values, status) ){
-                    return attributesInList( dtd, strRemove(string,tagr) );
-                } */
+                if ( attributeisValid(dtd,element,newEnumeratedAttribute(name,getValues(values,value)))){
+                    return attributesInList(dtd,string);
+                }
             }
         }
     }
@@ -118,6 +121,31 @@ Attributes *newAttribute( char *name, char *type, char *status ){
     attribute->next = NULL;
 
     return attribute;
+}
+
+Attributes *newEnumeratedAttribute( char *name, Values *values ){
+    struct Attributes *attribute = malloc(sizeof(Attributes));
+    removeSpaceandTab( name );
+    attribute->name = name;
+    attribute->values = values;
+
+    return attribute;
+}
+
+bool updateStatus( char *status, Values *values ){
+
+    while ( strchr(status,34) != NULL ){
+        removeChar(status,34);
+    }
+    removeSpaceandTab(status);
+    while ( values ){
+        if ( strcmp(status,values->name) == 0 ){
+            values->isDefault = true;
+            return true;
+        }
+        values = values->next;
+    }
+    return false;
 }
 
 bool attributeisValid( DTD *dtd, char *element, Attributes *newAttribute ){
@@ -149,16 +177,38 @@ bool attributeisValid( DTD *dtd, char *element, Attributes *newAttribute ){
 }
 
 
-void insertAttribute( Attributes *attribute, Attributes *insert ){
-    Attributes *tmp = attribute;
-    if (attribute == NULL ){
-        attribute = insert;
-        return;
+Values *getValues( char *values, Values *newValue ){
+
+    if ( strlen(values) == 0 ){
+        return newValue;
     }
-    while ( tmp->next != NULL ){
-        tmp = tmp->next;
+    char *name = malloc(sizeof(char)*strlen(values));
+    if ( strchr(values,'|') != NULL ){
+        name = extractUntil(values,'|');
+        strRemove(values,name);
+        removeChar(name,'|');
+        if ( strchr(name, '(') != NULL ){
+            removeChar(name, '(' );
+        }
+    } else {
+        name = extractUntil(values,')');
+        strRemove(values,name);
+        removeChar(name,')');
     }
-    tmp->next = insert;
+    removeSpaceandTab(name);
+    newValue->name = name;
+    newValue->next = malloc(sizeof(Values));
+    newValue->next = getValues(values,newValue->next);
+
+    return newValue;
+}
+
+Values *newValues( char *name ){
+    Values *newValue = malloc( sizeof(Values) );
+    newValue->name = name;
+    newValue->next = NULL;
+
+    return newValue;
 }
 contentType getType( char *type ){
 

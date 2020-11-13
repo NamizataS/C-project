@@ -10,7 +10,6 @@ int main() {
         printf("Les attributs ne sont pas au bon format ou ne correspondent à aucune balise existante\n");
         return EXIT_FAILURE;
     }
-
     //printDTD(dtd);
     freeDTD(dtd);
 
