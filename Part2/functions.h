@@ -182,6 +182,11 @@ bool attributeisValid( DTD *dtd, char *element, Attributes *newAttribute );
  * function used when it isn't an enumerated attribute
  */
 
+bool fillAttribute( DTD *dtd, char *element, char *string );
+/*
+ * fill a new attribute if the attributes for the same element are in the same block
+ */
+
 bool enumeratedAttributeisValid( DTD *dtd, char *element, Attributes *newAttribute );
 /*
  *

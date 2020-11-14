@@ -52,7 +52,6 @@ DTD *DTDinList( char *string, DTD *dtd ){
 bool attributesInList( DTD *dtd, char *string ){
 
     char *tag = extractName(string);
-
     if ( strstr(tag,"]>") != NULL ){
         return true;
     }
@@ -73,10 +72,10 @@ bool attributesInList( DTD *dtd, char *string ){
         strRemove(string,tag);
         char *element = extractUntil( tag, ' ' );
         strRemove(tag,element);
-        if ( strchr(tag,'|') == NULL ){
-            char *name = extractUntil(tag, ' ' );
-            strRemove(tag,name);
-            char *type = extractUntil(tag,' ');
+        char *name = extractUntil(tag, ' ' );
+        strRemove(tag,name);
+        char *type = extractUntil(tag,' ');
+        if ( strchr(type, '|') == NULL ){
             strRemove(tag,type);
             char *status = extractUntil(tag, ' ' );
             if ( status == NULL ){
@@ -86,22 +85,71 @@ bool attributesInList( DTD *dtd, char *string ){
                     return attributesInList( dtd, string );
                 }
             } else{
-
+                status = extractUntil(tag,11);
+                strRemove(tag,status);
+                if ( attributeisValid(dtd,element,newAttribute(name,type,status) ) ){
+                    if ( fillAttribute(dtd,element,tag) ){
+                        return attributesInList(dtd,string);
+                    }
+                }
             }
-
-        } else{
-            char *name = extractUntil( tag, ' ' );
-            strRemove( tag, name);
-            char *values = extractUntil(tag, ')' );
-            strRemove(tag,values);
+        } else {
+            type = extractUntil(tag,')');
             Values *value = malloc( sizeof(Values));
             char *status = extractUntil(tag,' ' );
             if ( strlen(status) == 1 ){
                 status = tag;
                 removeChar(status,'>');
-                if ( attributeisValid(dtd,element,newEnumeratedAttribute(name,getValues(values,value)))){
+                if ( attributeisValid(dtd,element,newEnumeratedAttribute(name,getValues(type,value)))){
                     return attributesInList(dtd,string);
                 }
+            }
+        }
+
+
+
+    }
+
+    return false;
+}
+
+bool fillAttribute( DTD *dtd, char *element, char *string ){
+    char *name = extractUntil( string, ' ' );
+    strRemove(string,name);
+    char *type = extractUntil( string, ' ' );
+    if ( strchr(type,'|') == NULL ){
+        strRemove(string,type);
+        char *status = extractUntil( string, ' ' );
+        if ( status == NULL ){
+            status = string;
+            removeChar(status,'>');
+            if ( attributeisValid(dtd,element,newAttribute(name,type,status) ) ){
+                return true;
+            }
+        } else {
+            status = extractUntil(string,11);
+            strRemove(string,status);
+            if ( attributeisValid(dtd,element,newAttribute(name,type,status) ) ){
+                return fillAttribute(dtd,element,string);
+            }
+        }
+    } else {
+        printf("hey");
+        type = extractUntil(string, ')');
+        strRemove(string,type);
+        char *status = extractUntil( string, ' ' );
+        Values *value = malloc(sizeof(Values));
+        if ( strlen(status) == 1 ){
+            status = string;
+            removeChar(status,'>');
+            if ( attributeisValid( dtd,element,newEnumeratedAttribute(name,getValues(type,value) ) ) ){
+                return true;
+            }
+        } else {
+            status = extractUntil(string,11);
+            strRemove(string,status);
+            if ( attributeisValid( dtd,element,newEnumeratedAttribute(name,getValues(type,value) ) ) ){
+                return fillAttribute( dtd,element,string );
             }
         }
     }
