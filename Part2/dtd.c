@@ -134,7 +134,6 @@ bool fillAttribute( DTD *dtd, char *element, char *string ){
             }
         }
     } else {
-        printf("hey");
         type = extractUntil(string, ')');
         strRemove(string,type);
         char *status = extractUntil( string, ' ' );

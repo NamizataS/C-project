@@ -2,8 +2,11 @@
 
 int main() {
     char *dtdPath = "./../recipe.dtd";
+    char *xmlPath = "./../recipe.xml";
     DTD *dtd;
+    Node *xml;
 
+    xml = XMLinList( FileinString(xmlPath),xml );
     dtd = DTDinList( FileinString(dtdPath), dtd);
 
     if ( !attributesInList(dtd,FileinString(dtdPath)) ){

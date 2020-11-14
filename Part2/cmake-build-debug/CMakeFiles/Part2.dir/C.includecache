@@ -6,10 +6,6 @@
 
 #IncludeRegexTransform: 
 
-/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part2/dtd.c
-functions.h
-/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part2/functions.h
-
 /Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part2/functions.h
 stdio.h
 -
@@ -23,4 +19,8 @@ ctype.h
 -
 assert.h
 -
+
+/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part2/main.c
+functions.h
+/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part2/functions.h
 

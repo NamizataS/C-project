@@ -10,5 +10,6 @@ CMakeFiles/Part2.dir/functions.c.o: ../functions.h
 CMakeFiles/Part2.dir/main.c.o: ../functions.h
 CMakeFiles/Part2.dir/main.c.o: ../main.c
 
+CMakeFiles/Part2.dir/xml.c.o: ../functions.h
 CMakeFiles/Part2.dir/xml.c.o: ../xml.c
 

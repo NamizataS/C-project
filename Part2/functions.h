@@ -38,11 +38,20 @@ typedef enum status status;
 
 struct Node {                   //structure pour représenter un noeud
     char *name;
+    struct xmlAttribute *attributes;
     struct Node *child;
     struct Node *sibling;
     char *content;
 };
 typedef struct Node Node;
+
+struct xmlAttribute{
+    char *name;
+    char *content;
+    struct xmlAttribute *next;
+};
+
+typedef struct xmlAttribute xmlAttribute;
 
 struct Values{
     char *name;
@@ -148,6 +157,33 @@ void removeSpaceandTab(char *string);
 
 void printDTD( DTD *dtd);
 
+//XML.C
+
+Node *XMLinList( char *string, Node *xml );
+
+/*
+ * put the infos of the XML in a Node(linked list)
+ */
+
+xmlAttribute *newXMLAttribute( char *name, char *content );
+/*
+ *
+ */
+
+bool fillXMLAttribute( xmlAttribute *attribute, char *string );
+/*
+ *
+ */
+
+void attributeInXML( xmlAttribute *list, xmlAttribute *insert );
+/*
+ *
+ */
+
+void freeXML( Node *xml );
+/*
+ * to free the allocated memory
+ */
 
 //DTD.C
 
