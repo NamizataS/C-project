@@ -167,17 +167,22 @@ Node *XMLinList( char *string, Node *xml );
 
 xmlAttribute *newXMLAttribute( char *name, char *content );
 /*
- *
+ * create a new XML attribute
  */
 
 bool fillXMLAttribute( xmlAttribute *attribute, char *string );
 /*
- *
+ * fill the XML attributes if there is multiple attributes
  */
 
 void attributeInXML( xmlAttribute *list, xmlAttribute *insert );
 /*
- *
+ * put the attributes in the XML if it already as elements in it
+ */
+
+bool checkXML( Node *xml,char *string );
+/*
+ * check if there is an open or close tag for each element
  */
 
 void freeXML( Node *xml );

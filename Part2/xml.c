@@ -120,6 +120,38 @@ void attributeInXML( xmlAttribute *list, xmlAttribute *insert ){
     current->next = insert;
 }
 
+bool checkXML( Node *xml,char *string ){
+
+    while ( xml && xml->name ){
+        char *tag = malloc( sizeof( char ) * (strlen(xml->name) + 1) );
+        char *closing = malloc(sizeof(char) * (strlen(xml->name)+1));
+        strcpy(tag,xml->name);
+        strcpy(closing,"</");
+        strcat(closing,tag);
+        strcat(closing,">");
+
+        if ( strstr(string,closing) == NULL ){
+            return false;
+        }
+        strRemove(string,closing);
+        removeChar(closing,'/');
+        if ( xml->attributes != NULL ){
+            removeChar(closing,'>');
+        }
+        if ( strstr(string,closing) == NULL ){
+            return false;
+        }
+        strRemove(string, closing);
+
+        if ( xml->child != NULL ){
+            xml = xml->child;
+        } else {
+            xml = xml->sibling;
+        }
+    }
+
+    return true;
+}
 void freeXML( Node *xml ){
     if (xml->child != NULL ){
         freeXML(xml->child);
