@@ -170,6 +170,36 @@ void deleteOccurrence( char *string, elementOccur occurrence );
  * remove the occurrence from the string
  */
 
+bool checkOccurrenceXML( Node *xml, char *string, elementOccur occurrence);
+/*
+ * check if there is the right amount of an element in the XML
+ */
+
+bool checkElement(DTD *dtd, char *string);
+/*
+ * check if the element is in the dtd
+ */
+
+bool checkXMLandDTD( DTD *dtd, Node *xml );
+/*
+ * to check if the xml respect the structure of the dtd
+ */
+
+bool checkDTDandXML( DTD *dtd, Node *xml );
+/*
+ * to check if the occurrence are ok
+ */
+
+bool checkAttributesinXML( DTD *dtd, Node *xml );
+/*
+ * check if the attributes of the DTD are in the XML
+ */
+
+bool checkAttributes( char *element, Attributes *attributes, Node *xml );
+/*
+ *
+ */
+
 void printDTD( DTD *dtd);
 
 //XML.C
@@ -198,6 +228,11 @@ void attributeInXML( xmlAttribute *list, xmlAttribute *insert );
 bool checkXML( Node *xml,char *string );
 /*
  * check if there is an open or close tag for each element
+ */
+
+bool checkStatusXML( status status, char *string, xmlAttribute *attribute );
+/*
+ * check if the status of an attribute is ok
  */
 
 void freeXML( Node *xml );

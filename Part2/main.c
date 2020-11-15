@@ -16,14 +16,20 @@ int main() {
     if ( !checkDTD( dtd,FileinString(dtdPath) ) ){
         printf("La DTD n'est pas valide\n");
     }
-    if ( !checkXML( xml,FileinString(xmlPath) ) ){
-        printf("The xml file is missing a closing or opening tag\n");
+
+    if ( !checkAttributesinXML( dtd, xml ) ){
+        printf("Les attributs ne sont pas bons\n");
         return EXIT_FAILURE;
     }
 
-    //printDTD(dtd);
+    if ( !checkXMLandDTD(dtd,xml) || !checkDTDandXML(dtd,xml) ){
+        printf("Le XML n'est pas conforme à la DTD\n");
+        return EXIT_FAILURE;
+    }
+
+    printf("Le XML est conforme à la DTD");
     freeDTD(dtd);
     freeXML(xml);
 
-    return 0;
+    return EXIT_SUCCESS;
 }

@@ -98,10 +98,9 @@ char *FileinString( char *filename ){
 
 
 char *isolateContent( char *tag ){
-
-    size_t len = strlen(tag);
-    char *newTag = malloc( sizeof(char) * len );
-    strcpy( newTag, tag );
+    size_t len = strlen(tag) + 1;
+    char *newTag = (char*)malloc(len);
+    memmove(newTag,tag,len);
     newTag = strRemove( newTag, ">");
     newTag = strRemove( newTag, "<");
 
@@ -187,6 +186,158 @@ void deleteOccurrence( char *string, elementOccur occurrence ){
     if ( occurrence == PLUS ){
         strRemove(string,"+");
     }
+}
+
+bool checkOccurrenceXML( Node *xml, char *string, elementOccur occurrence){
+    int count = 0;
+    while (xml && xml->name){
+        if ( strcmp(xml->name,string) == 0){
+            count += 1;
+        }
+        if (xml->child != NULL ){
+            xml = xml->child;
+        } else{
+            xml = xml->sibling;
+        }
+    }
+    switch (occurrence) {
+        case NONE:{
+            if ( count == 1 ){
+                return true;
+            }
+            break;
+        }
+        case ONCE:{
+            if ( count == 0 || count == 1 ){
+                return true;
+            }
+            break;
+        }
+        case MULT:{
+            if ( count >= 0 ){
+                return true;
+            }
+            break;
+        }
+        case PLUS:{
+            if (count >= 1){
+                return true;
+            }
+            break;
+        }
+    }
+    return false;
+}
+
+bool checkElement(DTD *dtd, char *string){
+
+    while (dtd){
+
+        if ( dtd->name != NULL && string != NULL && strcmp(dtd->name,string) == 0 ){
+            return true;
+        }
+        if ( dtd->child != NULL ){
+            dtd = dtd->child;
+        } else {
+            dtd = dtd->sibling;
+        }
+    }
+    return false;
+}
+
+bool checkXMLandDTD( DTD *dtd, Node *xml ){
+
+    while ( xml && xml->name){
+        if ( !checkElement(dtd,xml->name) ){
+            return false;
+        }
+        if ( xml->child != NULL ){
+            xml = xml->child;
+        } else{
+            xml = xml->sibling;
+        }
+    }
+
+    return true;
+}
+
+bool checkDTDandXML( DTD *dtd, Node *xml ){
+
+    while ( dtd && dtd->name ){
+        if ( !checkOccurrenceXML(xml,dtd->name,dtd->occurrence) ){
+            return false;
+        }
+        if (dtd->child != NULL ){
+            dtd = dtd->child;
+        } else{
+            dtd = dtd->sibling;
+        }
+    }
+    return true;
+}
+
+bool checkAttributesinXML( DTD *dtd, Node *xml ){
+
+    while (dtd && dtd->name){
+        if ( dtd->attributes != NULL ){
+            if(!checkAttributes(dtd->name,dtd->attributes,xml)){
+                return false;
+            }
+        }
+
+        if ( dtd->child != NULL ){
+            dtd = dtd->child;
+        } else {
+            dtd = dtd->sibling;
+        }
+    }
+    return true;
+}
+
+bool checkAttributes( char *element, Attributes *attributes, Node *xml ){
+
+    while ( xml && xml->name ){
+        if ( strcmp(xml->name,element) == 0 ){
+            while ( attributes ){
+                if ( !checkStatusXML(attributes->status,attributes->name,xml->attributes) || strcmp(attributes->name,xml->attributes->name) != 0 ){
+                    return false;
+                }
+                attributes = attributes->next;
+            }
+        }
+        if ( xml->child != NULL ){
+            xml = xml->child;
+        }else{
+            xml = xml->sibling;
+        }
+    }
+    return true;
+}
+
+bool checkStatusXML( status status, char *string, xmlAttribute *attribute ){
+    int count = 0;
+    while ( attribute ){
+        if ( strcmp(attribute->name,string) == 0 ){
+            count += 1;
+        }
+        attribute = attribute->next;
+    }
+    switch (status) {
+        case REQUIRED:{
+            if ( count == 1 ){
+                return true;
+            }
+            break;
+        }
+        case IMPLIED:{
+            if ( count == 0 || count == 1 ){
+                return true;
+            }
+            break;
+        }
+
+    }
+    return false;
 }
 void printDTD( DTD *dtd){
     while (dtd){

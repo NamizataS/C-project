@@ -2,7 +2,7 @@
 
 <!DOCTYPE recipe SYSTEM "recipe.dtd"[]>
 <recipe>
-    <cake quantity="10" weight="5">Fraisiers</cake>
     <cake quantity="5">Tarte aux pommes</cake>
+    <cake weight="4">Fraisier</cake>
     <cake quantity="2">Tiramisu</cake>
 </recipe>

@@ -24,8 +24,10 @@ Node *XMLinList( char *string, Node *xml ){
     if ( strstr(tag, "<!DOCTYPE") != NULL ){
         return XMLinList( strRemove(string,tag), xml );
     }
-    char *name = isolateContent(tag);
+
+
     strRemove(string,tag);
+    char *name = isolateContent(tag);
     removeChar(string,11);
     if ( *string == '<' ){
         xml = malloc(sizeof(Node));
@@ -129,10 +131,10 @@ bool checkXML( Node *xml,char *string ){
         strcpy(closing,"</");
         strcat(closing,tag);
         strcat(closing,">");
-
         if ( strstr(string,closing) == NULL ){
             return false;
         }
+        printf("%s\n",xml->name);
         strRemove(string,closing);
         removeChar(closing,'/');
         if ( xml->attributes != NULL ){

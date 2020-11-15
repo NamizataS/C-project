@@ -5,7 +5,6 @@
 #include "functions.h"
 
 DTD *DTDinList( char *string, DTD *dtd ){
-
     char *tag = extractName(string);
     if ( strstr(tag,"]>") != NULL ){
         return dtd;
