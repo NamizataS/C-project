@@ -8,7 +8,7 @@ int main() {
 
     xml = XMLinList(FileinString( xmlPath), xml);
 
-    if ( xml == NULL ){
+    if ( !checkXML(FileinString(xmlPath)) ){
         printf("Le fichier XML est mal formé\n");
         return EXIT_FAILURE;
     } else {

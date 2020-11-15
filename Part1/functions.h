@@ -154,7 +154,7 @@ void printDTD( DTD *dtd);
 
 //XML.C
 
-bool checkXML( Node *xml, char *root );
+bool checkXML( char *string );
 /*
  * check if the XML is valid
  */

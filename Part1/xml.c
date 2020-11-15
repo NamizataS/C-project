@@ -4,19 +4,54 @@
 
 #include "functions.h"
 
-bool checkXML( Node *xml, char *root ){
-    int count = 0;
-    while (xml){
-        if ( xml->name != NULL && strcmp(xml->name, root ) == 0 ){
-            count += 1;
-        }
-        if ( xml->child != NULL ){
-            xml = xml->child;
-        } else {
-            xml = xml->sibling;
-        }
+bool checkXML( char *string ){
+    removeChar(string,11);
+    //printf("%s\n",string);
+    if ( string == NULL ){
+        return true;
     }
-    return count > 1 ? false : true;
+    if ( *string == '<'){
+        char *tag = extractUntil(string,'>');
+        if ( strstr(tag,"<?xml version=\"1.0\"") != NULL || strstr(tag,"<?xml version=\"1.1\"") != NULL && strstr(tag,"?>") != NULL ){
+            return checkXML( strRemove(string,tag));
+        }
+        if ( strstr(tag, "<!DOCTYPE") != NULL ){
+            return checkXML( strRemove(string,tag) );
+        }
+        if ( strchr(tag,'=') == NULL ){
+            strRemove(string,tag);
+            removeChar( tag, '<' );
+            char *closing = malloc(sizeof(char) * (strlen(tag) + 1));
+            strcpy(closing,"</");
+            strcat(closing,tag);
+            if ( strstr(string,closing) == NULL ){
+                return false;
+            } else{
+                //printf("%s\n",closing);
+                return checkXML( strRemove(string,closing));
+            }
+        } else {
+            strRemove(string,tag);
+            tag = extractUntil( tag, ' ' );
+            removeChar(tag,' ');
+            removeChar(tag,'<');
+            char *closing = malloc(sizeof(char)*(strlen(tag)+1));
+            strcpy(closing,"</");
+            strcat(closing,tag);
+            strcat(closing,">");
+            if ( strstr(string,closing) == NULL ){
+                return false;
+            }else{
+                return checkXML( strRemove(string,closing));
+            }
+        }
+
+    }else{
+        char *content = extractUntil(string,'<');
+        removeChar(content,'<');
+        return checkXML( strRemove(string,content));
+    }
+    return true;
 }
 
 Node *XMLinList( char *string, Node *xml ){
@@ -40,10 +75,12 @@ Node *XMLinList( char *string, Node *xml ){
         return XMLinList( strRemove(string,tag), xml );
     }
 
+    strRemove(string,tag);
     char *name = isolateContent(tag);
+    removeChar(string,11);
     strRemove(name, " ");
     removeChar(name,11);
-    if ( xml == NULL ){
+    if ( *string == '<' ){
         xml = malloc(sizeof(Node));
         xml->name = name;
         xml->child = malloc(sizeof(Node));

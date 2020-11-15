@@ -7,7 +7,7 @@ int main() {
     Node *xml;
 
     if ( !checkXML(FileinString(xmlPath))){
-        printf("Il manque une balise fermante\n");
+        printf("Il manque une balise fermante ou ouvrante\n");
         return EXIT_FAILURE;
     }
     xml = XMLinList( FileinString(xmlPath),xml );
