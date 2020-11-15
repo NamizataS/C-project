@@ -299,7 +299,7 @@ bool checkAttributes( char *element, Attributes *attributes, Node *xml ){
     while ( xml && xml->name ){
         if ( strcmp(xml->name,element) == 0 ){
             while ( attributes ){
-                if ( !checkStatusXML(attributes->status,attributes->name,xml->attributes) || strcmp(attributes->name,xml->attributes->name) != 0 ){
+                if ( !checkStatusXML(attributes->status,attributes->name,xml->attributes)){
                     return false;
                 }
                 attributes = attributes->next;
@@ -322,6 +322,7 @@ bool checkStatusXML( status status, char *string, xmlAttribute *attribute ){
         }
         attribute = attribute->next;
     }
+
     switch (status) {
         case REQUIRED:{
             if ( count == 1 ){
