@@ -204,6 +204,11 @@ void printDTD( DTD *dtd);
 
 //XML.C
 
+bool checkXML( char *string );
+/*
+ * check if there is an open or close tag for each element
+ */
+
 Node *XMLinList( char *string, Node *xml );
 
 /*
@@ -223,11 +228,6 @@ bool fillXMLAttribute( xmlAttribute *attribute, char *string );
 void attributeInXML( xmlAttribute *list, xmlAttribute *insert );
 /*
  * put the attributes in the XML if it already as elements in it
- */
-
-bool checkXML( Node *xml,char *string );
-/*
- * check if there is an open or close tag for each element
  */
 
 bool checkStatusXML( status status, char *string, xmlAttribute *attribute );
