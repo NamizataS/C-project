@@ -155,6 +155,21 @@ void removeSpaceandTab(char *string);
  * function to remove VT and space
  */
 
+bool checkCharacter( char *string, char character );
+/*
+ *
+ */
+
+elementOccur checkOccurrence( char *string );
+/*
+ * check the occurrence of each elements in the DTD
+ */
+
+void deleteOccurrence( char *string, elementOccur occurrence );
+/*
+ * remove the occurrence from the string
+ */
+
 void printDTD( DTD *dtd);
 
 //XML.C
@@ -243,12 +258,6 @@ Values *newValues( char *name );
  * create a new Values
  */
 
-bool insertEnumeratedAttribute( DTD *dtd, char *element, char *name, char *values, char *status);
-/*
- * check if the element is in the dtd and insert the attribute and return true
- * function used when it is an enumerated attribute
- */
-
 contentType getType( char *type );
 /*
  * transform the type from char to the enum type created earlier
@@ -257,6 +266,22 @@ contentType getType( char *type );
 status getStatus( char *status );
 /*
  * transform the status from char to the the enum type created earlier
+ */
+
+bool checkDTD( DTD *dtd, char *string );
+/*
+ * check if a DTD is valid
+ */
+
+bool checkChild( DTD *dtd, char *tag, elementOccur occurrence );
+/*
+ * check if the string is in the DTD
+ */
+
+bool checkDTDElement( DTD *dtd, char *tag );
+
+/*
+ * check if all the child are in the DTD
  */
 
 void freeDTD( DTD *dtd );

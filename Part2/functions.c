@@ -157,6 +157,37 @@ void removeSpaceandTab(char *string){
     removeChar( string, 11 );
 }
 
+bool checkCharacter( char *string, char character ){
+    if ( string != NULL && strchr(string, character ) != NULL ){
+        return true;
+    }
+    return false;
+}
+
+elementOccur checkOccurrence( char *string ){
+    if ( checkCharacter(string, '?') ){
+        return ONCE;
+    }
+    if ( checkCharacter(string, '*') ){
+        return MULT;
+    }
+    if ( checkCharacter(string, '+') ){
+        return PLUS;
+    }
+    return NONE;
+}
+
+void deleteOccurrence( char *string, elementOccur occurrence ){
+    if ( occurrence == ONCE ){
+        strRemove(string, "?");
+    }
+    if ( occurrence == MULT ){
+        strRemove(string,"*");
+    }
+    if ( occurrence == PLUS ){
+        strRemove(string,"+");
+    }
+}
 void printDTD( DTD *dtd){
     while (dtd){
         printf("%s\t%d",dtd->name,dtd->occurrence);
