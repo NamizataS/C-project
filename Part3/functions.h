@@ -184,11 +184,11 @@ Node *XMLinList( Node *xml, char *string );
  * put the infos of the XML in a Node(linked list)
  */
 
-Node *newRoot( char *name );
+Node *newRoot( char *name, xmlAttribute *attributes );
 
-Node *newLeaf( char *name, char *content );
+Node *newLeaf( char *name, char *content, xmlAttribute *attributes );
 
-Node *fillRoot( Node *xml, char *name );
+Node *fillRoot( Node *xml, char *name, xmlAttribute *attributes );
 /*
  * to fill a root
  */

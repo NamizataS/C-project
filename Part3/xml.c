@@ -91,7 +91,7 @@ Node *XMLinList( Node *xml,char *string ){
         removeChar(tag,'>');
         if ( strchr(tag,'=') == NULL ){
             if ( xml == NULL ){
-                xml = newRoot( tag );
+                xml = newRoot( tag, NULL );
                 xml->child->parent = xml;
                 return XMLinList( xml->child,string );
             } else {
@@ -101,30 +101,48 @@ Node *XMLinList( Node *xml,char *string ){
                     xml->child = malloc(sizeof(Node));
                     xml->child->parent = xml;
                 } else{
-                    return XMLinList( fillRoot(xml,tag),string);
+                    return XMLinList( fillRoot(xml,tag, NULL),string);
                 }
             }
-        }else{
+        } else{
             char *element = extractUntil(tag,' ');
+            strRemove(tag,element);
+            removeSpaceandTab(element);
+            char *attributeName = extractUntil(tag,'=');
+            strRemove(tag,attributeName);
+            removeChar(attributeName,'=');
+            removeSpaceandTab(attributeName);
+            char *value = extractUntil(tag,' ');
+            xmlAttribute *attribute;
+            if ( value == NULL ){
+                value = tag;
+                removeSpaceandTab(tag);
+                attribute = newXMLAttribute(attributeName,value);
+            } else{
+                strRemove(tag,value);
+                removeSpaceandTab(value);
+                attribute = newXMLAttribute(attributeName,value);
+                fillXMLAttribute(attribute,tag);
+            }
             if ( xml == NULL ){
-                xml = newRoot( element );
+                xml = newRoot( element, attribute );
                 xml->child->parent = xml;
                 return XMLinList( xml->child,string );
             } else {
-                removeSpaceandTab(element);
                 if ( xml->name == NULL ){
                     xml->name = element;
+                    xml->attributes = attribute;
                     xml->child = malloc(sizeof(Node));
                     xml->child->parent = xml;
                     return XMLinList( xml->child,string );
                 } else{
-                    return XMLinList( fillRoot(xml,element),string);;
+                    return XMLinList( fillRoot(xml,element, attribute ),string);;
                 }
             }
         }
     } else{
+        char *name = extractUntil(tag,'>');
         if ( strchr(tag,'=') == NULL ){
-            char *name = extractUntil(tag,'>');
             removeChar(name,'<');
             removeChar(name,'>');
             removeSpaceandTab(name);
@@ -138,31 +156,63 @@ Node *XMLinList( Node *xml,char *string ){
                 return XMLinList(xml,strRemove(string,tag));
 
             } else{
-                fillSibling( xml, newLeaf(name,content));
+                fillSibling( xml, newLeaf(name,content, NULL));
                 return XMLinList(xml,strRemove(string,tag));
             }
+        } else {
+            char *element = extractUntil(name, ' ' );
+            strRemove(name,element);
+            removeSpaceandTab(element);
+            char *attributeName = extractUntil(name,'=');
+            strRemove(name,attributeName);
+            removeSpaceandTab(attributeName);
+            char *value = extractUntil(name, ' ' );
+            xmlAttribute *attribute;
+            if ( value == NULL ){
+                value = name;
+                removeSpaceandTab(value);
+                attribute = newXMLAttribute(attributeName,value);
+            } else {
+                strRemove( name, value);
+                removeSpaceandTab(value);
+                attribute = newXMLAttribute( attributeName,value);
+                fillXMLAttribute(attribute,name);
+            }
+            tag = extractName(string);
+            char *content = extractContent(tag,'<');
+            if ( xml->name == NULL || xml == NULL ){
+                xml->name = element;
+                xml->content = content;
+                xml->attributes = attribute;
+                return XMLinList(xml,strRemove(string,tag));
+            } else{
+                fillSibling( xml, newLeaf(element,content,attribute));
+                return XMLinList(xml,strRemove(string,tag));
+            }
+
         }
     }
 
     return xml;
 }
 
-Node *newRoot( char *name ){
+Node *newRoot( char *name, xmlAttribute *attributes ){
     removeSpaceandTab(name);
     Node *newRoot = malloc(sizeof(Node));
     newRoot->name = name;
     newRoot->parent = NULL;
     newRoot->child = malloc(sizeof(Node));
     newRoot->sibling = NULL;
-    newRoot->attributes = NULL;
+    newRoot->attributes = attributes;
 
     return newRoot;
 }
 
-Node *newLeaf( char *name, char *content ){
+Node *newLeaf( char *name, char *content, xmlAttribute *attributes ){
     Node *newLeaf = malloc(sizeof(Node));
     newLeaf->name = name;
     newLeaf->content = content;
+    newLeaf->attributes = attributes;
     newLeaf->parent = NULL;
     newLeaf->child = NULL;
     newLeaf->sibling = NULL;
@@ -171,7 +221,7 @@ Node *newLeaf( char *name, char *content ){
 
 }
 
-Node *fillRoot( Node *xml, char *name){
+Node *fillRoot( Node *xml, char *name, xmlAttribute *attributes ){
     removeSpaceandTab( name );
     Node *current = xml;
     while ( current->sibling != NULL ){
@@ -179,6 +229,7 @@ Node *fillRoot( Node *xml, char *name){
     }
     current->sibling = malloc(sizeof(Node));
     current->sibling->name = name;
+    current->sibling->attributes = attributes;
     current->sibling->olderSibling = current;
     current->sibling->child = malloc(sizeof(Node));
     current->sibling->child->parent = current->sibling;

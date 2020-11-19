@@ -5,10 +5,10 @@ int main() {
 
     Node *xml;
 
-    /*if ( !checkXML( FileinString(xmlPath) ) ){
+    if ( !checkXML( FileinString(xmlPath) ) ){
         printf("Il manque une balise ouvrante ou fermante\n");
         return EXIT_FAILURE;
-    }*/
+    }
     xml = XMLinList( xml, FileinString(xmlPath) );
     //printXML(xml);
     //freeXML(xml);
