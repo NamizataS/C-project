@@ -1,0 +1,10 @@
+<!DOCTYPE RECIPE[
+        <!ELEMENT recipe (cake+,pie*)>
+        <!ELEMENT cake (ingrediends+)>
+        <!ELEMENT pie (#PCDATA)>
+        <!ELEMENT ingrediends (#PCDATA)>
+
+        <!ATTLIST cake name CDATA #REQUIRED>
+        <!ATTLIST ingrediends quantity CDATA #IMPLIED>
+
+        ]>

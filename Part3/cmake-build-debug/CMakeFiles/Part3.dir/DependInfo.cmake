@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part3/dtd.c" "/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part3/cmake-build-debug/CMakeFiles/Part3.dir/dtd.c.o"
   "/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part3/functions.c" "/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part3/cmake-build-debug/CMakeFiles/Part3.dir/functions.c.o"
   "/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part3/main.c" "/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part3/cmake-build-debug/CMakeFiles/Part3.dir/main.c.o"
   "/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part3/xml.c" "/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part3/cmake-build-debug/CMakeFiles/Part3.dir/xml.c.o"

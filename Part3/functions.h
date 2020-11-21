@@ -73,6 +73,7 @@ typedef struct Attributes Attributes;
 
 struct DTD {
     char *name;
+    struct DTD *parent;
     struct DTD *child;
     struct DTD *sibling;
     contentType type;
@@ -172,6 +173,8 @@ void deleteOccurrence( char *string, elementOccur occurrence );
  */
 
 void printXML( Node *xml );
+void printDTD( DTD *dtd );
+
 //XML.C
 bool checkXML( char *string );
 /*
@@ -185,8 +188,14 @@ Node *XMLinList( Node *xml, char *string );
  */
 
 Node *newRoot( char *name, xmlAttribute *attributes );
+/*
+ * to create a new root
+ */
 
 Node *newLeaf( char *name, char *content, xmlAttribute *attributes );
+/*
+ * to create a new leaf
+ */
 
 Node *fillRoot( Node *xml, char *name, xmlAttribute *attributes );
 /*
@@ -194,6 +203,9 @@ Node *fillRoot( Node *xml, char *name, xmlAttribute *attributes );
  */
 
 void fillSibling( Node *sibling, Node *insert );
+/*
+ * to fill a leaf/sibling
+ */
 
 xmlAttribute *newXMLAttribute( char *name, char *content );
 /*
@@ -218,6 +230,84 @@ bool checkStatusXML( status status, char *string, xmlAttribute *attribute );
  */
 
 void freeXML( Node *xml );
+/*
+ * to free the allocated memory
+ */
+
+//DTD.C
+
+DTD *DTDinList( DTD *dtd, char *string );
+/*
+ * put the infos of the DTD in a linked list
+ */
+
+void fillDTDRoot( DTD *dtd, char *string, char *element );
+/*
+ *
+ */
+
+DTD *newChild( char *name, elementOccur occurrence );
+/*
+ * to create a new DTD child
+ */
+
+bool fillSiblingDTD( DTD *dtd, char *string );
+/*
+ *
+ */
+
+void dtdinRoot( DTD *dtd, DTD *insert );
+/*
+ * insert a new DTD after a sibling
+ */
+
+bool searchThroughDTD( DTD *dtd, char *element );
+/*
+ * search through the DTD to see if the element is already in the DTD
+ */
+
+bool attributesInList( DTD *dtd, char *string );
+/*
+ * to add the attributes in the list. Return true if it was successful and false if it isn't
+ */
+
+bool attributeisValid( DTD *dtd, char *element, Attributes *newAttribute );
+/*
+ * check if the element is really in the dtd and insert the attribute and return true if it is
+ * function used when it isn't an enumerated attribute
+ */
+
+Attributes *newAttribute( char *name, char *type, char *status );
+/*
+ * create a new attribute
+ */
+
+Attributes *newEnumeratedAttribute( char *name, Values *values );
+/*
+ * create a new enumerated attribute
+ */
+
+bool fillAttribute( DTD *dtd, char *element, char *string );
+/*
+ * fill a new attribute if the attributes for the same element are in the same block
+ */
+
+Values *getValues( char *values, Values *newValues );
+/*
+ * create a new linked list values
+ */
+
+contentType getType( char *type );
+/*
+ * transform the type from char to the enum type created earlier
+ */
+
+status getStatus( char *status );
+/*
+ * transform the status from char to the the enum type created earlier
+ */
+
+void freeDTD( DTD *dtd );
 /*
  * to free the allocated memory
  */

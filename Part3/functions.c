@@ -203,3 +203,14 @@ void printXML( Node *xml ){
         }
     }
 }
+
+void printDTD( DTD *dtd){
+    while (dtd){
+        printf("%s\t%d\n",dtd->name,dtd->occurrence);
+        if (dtd->sibling != NULL ){
+            dtd = dtd->sibling;
+        } else {
+            dtd = dtd->child;
+        }
+    }
+}

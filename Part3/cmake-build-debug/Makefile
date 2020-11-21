@@ -143,6 +143,33 @@ Part3/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Part3.dir/build.make CMakeFiles/Part3.dir/build
 .PHONY : Part3/fast
 
+dtd.o: dtd.c.o
+
+.PHONY : dtd.o
+
+# target to build an object file
+dtd.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Part3.dir/build.make CMakeFiles/Part3.dir/dtd.c.o
+.PHONY : dtd.c.o
+
+dtd.i: dtd.c.i
+
+.PHONY : dtd.i
+
+# target to preprocess a source file
+dtd.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Part3.dir/build.make CMakeFiles/Part3.dir/dtd.c.i
+.PHONY : dtd.c.i
+
+dtd.s: dtd.c.s
+
+.PHONY : dtd.s
+
+# target to generate assembly for a file
+dtd.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Part3.dir/build.make CMakeFiles/Part3.dir/dtd.c.s
+.PHONY : dtd.c.s
+
 functions.o: functions.c.o
 
 .PHONY : functions.o
@@ -233,6 +260,9 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... Part3"
+	@echo "... dtd.o"
+	@echo "... dtd.i"
+	@echo "... dtd.s"
 	@echo "... functions.o"
 	@echo "... functions.i"
 	@echo "... functions.s"

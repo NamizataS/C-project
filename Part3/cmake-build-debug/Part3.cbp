@@ -78,6 +78,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part3/dtd.c">
+			<Option target="Part3"/>
+		</Unit>
 		<Unit filename="/Users/namizatasangare/Documents/ESGI/3EME_ANNEE/S1/C-project/Part3/functions.c">
 			<Option target="Part3"/>
 		</Unit>

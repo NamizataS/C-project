@@ -1,4 +1,5 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/Part3.dir/dtd.c.o"
   "CMakeFiles/Part3.dir/functions.c.o"
   "CMakeFiles/Part3.dir/main.c.o"
   "CMakeFiles/Part3.dir/xml.c.o"
