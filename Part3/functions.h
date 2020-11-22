@@ -172,6 +172,41 @@ void deleteOccurrence( char *string, elementOccur occurrence );
  * remove the occurrence from the string
  */
 
+bool checkAttributesinXML( DTD *dtd, Node *xml );
+/*
+ * check if the attributes of the DTD are in the XML
+ */
+
+bool checkAttributes( char *element, Attributes *attributes, Node *xml );
+/*
+ *
+ */
+
+bool checkXMLandDTD( DTD *dtd, Node *xml );
+/*
+ * to check if the xml respect the structure of the dtd
+ */
+
+bool checkElement( DTD *dtd, Node *xml );
+/*
+ * check if the element is in the dtd
+ */
+
+bool checkSibling( char *string, DTD *dtd );
+/*
+ *
+ */
+
+bool checkDTDandXML( DTD *dtd, Node *xml );
+/*
+ * to check if the occurrence are ok
+ */
+
+bool checkOccurrenceXML( Node *xml, char *string, elementOccur occurrence);
+/*
+ * check if there is the right amount of an element in the XML
+ */
+
 void printXML( Node *xml );
 void printDTD( DTD *dtd );
 
@@ -221,8 +256,6 @@ void attributeInXML( xmlAttribute *list, xmlAttribute *insert );
 /*
  * put the attributes in the XML if it already as elements in it
  */
-
-void findElementToInsertAttribute( Node *xml, char *element, xmlAttribute *insert, char *string );
 
 bool checkStatusXML( status status, char *string, xmlAttribute *attribute );
 /*

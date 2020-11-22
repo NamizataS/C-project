@@ -282,34 +282,31 @@ void attributeInXML( xmlAttribute *list, xmlAttribute *insert ){
     current->next = insert;
 }
 
-void findElementToInsertAttribute( Node *xml, char *element, xmlAttribute *insert, char *string ){
-    while ( xml ){
-        if ( strcmp(element, xml->name) == 0 ){
-            if ( strlen( string) == 0 ){
-                if ( xml->attributes == NULL ){
-                    xml->attributes = insert;
-                    return;
-                } else{
-                    attributeInXML( xml->attributes,insert );
-                    return;
-                }
-            } else {
-                if ( xml->attributes == NULL ){
-                    xml->attributes = insert;
-                    return;
-                } else{
-                    attributeInXML( xml->attributes,insert);
-                    fillXMLAttribute(xml->attributes,string);
-                    return;
-                }
-            }
+bool checkStatusXML( status status, char *string, xmlAttribute *attribute ){
+    int count = 0;
+    while ( attribute ){
+        if ( strcmp(attribute->name,string) == 0 ){
+            count += 1;
         }
-        if ( xml->child != NULL ){
-            xml = xml->child;
-        } else {
-            xml = xml->sibling;
-        }
+        attribute = attribute->next;
     }
+
+    switch (status) {
+        case REQUIRED:{
+            if ( count == 1 ){
+                return true;
+            }
+            break;
+        }
+        case IMPLIED:{
+            if ( count == 0 || count == 1 ){
+                return true;
+            }
+            break;
+        }
+
+    }
+    return false;
 }
 
 void freeXML( Node *xml ){

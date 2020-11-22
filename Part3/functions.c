@@ -192,6 +192,131 @@ void deleteOccurrence( char *string, elementOccur occurrence ){
     }
 }
 
+bool checkAttributesinXML( DTD *dtd, Node *xml ){
+
+    while (dtd && dtd->name){
+        if ( dtd->attributes != NULL ){
+            if(!checkAttributes(dtd->name,dtd->attributes,xml)){
+                return false;
+            }
+        }
+
+        if ( dtd->child != NULL ){
+            dtd = dtd->child;
+        } else {
+            dtd = dtd->sibling;
+        }
+    }
+    return true;
+}
+
+bool checkAttributes( char *element, Attributes *attributes, Node *xml ){
+
+    while ( xml && xml->name ){
+        if ( strcmp(xml->name,element) == 0 ){
+            while ( attributes ){
+                if ( !checkStatusXML(attributes->status,attributes->name,xml->attributes)){
+                    return false;
+                }
+                attributes = attributes->next;
+            }
+        }
+        if ( xml->child != NULL ){
+            xml = xml->child;
+        }else{
+            xml = xml->sibling;
+        }
+    }
+    return true;
+}
+bool checkElement(DTD *dtd, Node *xml ){
+    while ( xml && xml->name ){
+        if ( !checkSibling( xml->name,dtd) ){
+            return false;
+        }
+        xml = xml->sibling;
+    }
+    return true;
+}
+
+bool checkSibling( char *string, DTD *dtd ){
+    while ( dtd && dtd->name ){
+        if ( strcmp( string, dtd->name ) == 0 ){
+            return true;
+        }
+        dtd = dtd->sibling;
+    }
+    return false;
+}
+
+bool checkXMLandDTD( DTD *dtd, Node *xml ){
+    while ( xml && dtd && xml->name && dtd->name ){
+        if ( !checkElement( dtd,xml ) ){
+            return false;
+        }
+        xml = xml->child;
+        dtd = dtd->child;
+    }
+
+    return true;
+}
+
+bool checkDTDandXML( DTD *dtd, Node *xml ){
+
+    while ( dtd && dtd->name ){
+        if ( !checkOccurrenceXML(xml,dtd->name,dtd->occurrence) ){
+            return false;
+        }
+        if (dtd->child != NULL ){
+            dtd = dtd->child;
+        } else{
+            dtd = dtd->sibling;
+        }
+    }
+    return true;
+}
+
+bool checkOccurrenceXML( Node *xml, char *string, elementOccur occurrence){
+    int count = 0;
+    while (xml && xml->name){
+        if ( strcmp(xml->name,string) == 0){
+            count += 1;
+        }
+        if (xml->child != NULL ){
+            xml = xml->child;
+        } else{
+            xml = xml->sibling;
+        }
+    }
+    switch (occurrence) {
+        case NONE:{
+            if ( count == 1 ){
+                return true;
+            }
+            break;
+        }
+        case ONCE:{
+            if ( count == 0 || count == 1 ){
+                return true;
+            }
+            break;
+        }
+        case MULT:{
+            if ( count >= 0 ){
+                return true;
+            }
+            break;
+        }
+        case PLUS:{
+            if (count >= 1){
+                return true;
+            }
+            break;
+        }
+    }
+    return false;
+}
+
 void printXML( Node *xml ){
     printf("Parent: ");
     while (xml && xml->name){

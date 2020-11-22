@@ -8,9 +8,9 @@
         <ingrediends>Eggs</ingrediends>
         <ingrediends>Strawberry</ingrediends>
     </cake>
-    <cake name="Tarte aux pommes">
+    <pie name="Tarte aux pommes">
         <ingrediends>Flour</ingrediends>
         <ingrediends>Eggs</ingrediends>
         <ingrediends>Apple</ingrediends>
-    </cake>
+    </pie>
 </recipe>

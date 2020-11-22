@@ -21,9 +21,7 @@ DTD *DTDinList( DTD *dtd, char *string ){
         char *element = extractUntil( tag, ' ' );
         strRemove( tag, element );
         removeSpaceandTab( element );
-        //printf("%s\n",element);
         if ( dtd == NULL ){
-            //printf("%s\n",element);
             dtd = malloc(sizeof(DTD));
             dtd->name = element;
             if ( strstr(tag, "#PCDATA") != NULL ){
@@ -43,7 +41,6 @@ DTD *DTDinList( DTD *dtd, char *string ){
             if ( searchThroughDTD( dtd,element ) ){
                 char *child = extractUntil( tag, ')' );
                 fillDTDRoot( dtd, child, element );
-                //printf("%s\n",string );
                 return DTDinList(dtd,string);
             }
         }
@@ -52,7 +49,7 @@ DTD *DTDinList( DTD *dtd, char *string ){
     if ( strstr(tag, "<!ATTLIST") != NULL ){
         return DTDinList( dtd, strRemove( string, tag ) );
     }
-
+    return NULL;
 }
 
 DTD *newChild( char *name, elementOccur occurrence ){
