@@ -29,7 +29,6 @@ int main() {
         printf("Le XML n'est pas conforme à la DTD\n");
     }
 
-    //printXML(xml);
     freeXML(xml);
     freeDTD( dtd );
     return EXIT_SUCCESS;

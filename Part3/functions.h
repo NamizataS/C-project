@@ -207,8 +207,6 @@ bool checkOccurrenceXML( Node *xml, char *string, elementOccur occurrence);
  * check if there is the right amount of an element in the XML
  */
 
-void printXML( Node *xml );
-void printDTD( DTD *dtd );
 
 //XML.C
 bool checkXML( char *string );

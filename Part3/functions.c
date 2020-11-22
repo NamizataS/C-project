@@ -316,26 +316,3 @@ bool checkOccurrenceXML( Node *xml, char *string, elementOccur occurrence){
     }
     return false;
 }
-
-void printXML( Node *xml ){
-    printf("Parent: ");
-    while (xml && xml->name){
-        printf("%s\n",xml->name);
-        if (xml->parent != NULL ){
-            xml = xml->parent;
-        } else {
-            xml = xml->child;
-        }
-    }
-}
-
-void printDTD( DTD *dtd){
-    while (dtd){
-        printf("%s\t%d\n",dtd->name,dtd->occurrence);
-        if (dtd->sibling != NULL ){
-            dtd = dtd->sibling;
-        } else {
-            dtd = dtd->child;
-        }
-    }
-}
