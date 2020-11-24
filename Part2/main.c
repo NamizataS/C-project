@@ -10,13 +10,13 @@ int main() {
     FILE *dtdFile = NULL;
 
     while ( !xmlFile ){
-        printf("Rentrez le chemin de votre fichier XML\n");
+        printf("Veuillez entrer le chemin de votre fichier XML\n");
         scanf("%s",xmlPath);
         xmlFile = openFile(xmlPath);
     }
 
     while ( !dtdFile ){
-        printf("Rentrez le chemin de votre fichier DTD\n");
+        printf("Veuillez entrer le chemin de votre fichier DTD\n");
         scanf("%s",dtdPath);
         dtdFile = openFile(dtdPath);
     }
