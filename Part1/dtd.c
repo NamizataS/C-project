@@ -98,6 +98,7 @@ DTD *DTDinList( char *string, DTD *dtd ){
             dtd->child = malloc(sizeof(DTD));
             dtd->child = DTDinList(strRemove(string,tag),dtd->child);
         } else{
+            dtd = malloc(sizeof(DTD));
             dtd->name = elementName;
             strRemove(string,elementName);
             strRemove(tag,elementName);

@@ -9,7 +9,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
-#include <ctype.h>
 #include <assert.h>
 
 
@@ -47,6 +46,7 @@ struct DTD {
 typedef struct DTD DTD;
 
 //FUNCTIONS.C
+
 FILE *openFile( char *filename );
 /*
  * function to open a file

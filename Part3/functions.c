@@ -134,8 +134,8 @@ void removeChar( char *string, char c ){
     if (string != NULL && strchr(string,c) != NULL ){
         char *pr = string, *pw = string;
         while ( *pr ){
-            *pw = *pr++;
-            pw += (*pw != c);
+            *pw = *pr++; //advance the reading pointer
+            pw += (*pw != c); //advance the writing pointer only when it's not pointing to the given char
         }
         *pw = '\0';
     }

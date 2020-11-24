@@ -1,10 +1,25 @@
 #include "functions.h"
 
 int main() {
-    char *dtdPath = "./../recipe.dtd";
-    char *xmlPath = "./../recipe.xml";
+    char *xmlPath = malloc(sizeof(char)*100);
+    char *dtdPath = malloc(sizeof(char)*100);
     DTD *dtd;
     Node *xml;
+
+    FILE* xmlFile = NULL;
+    FILE *dtdFile = NULL;
+
+    while ( !xmlFile ){
+        printf("Rentrez le chemin de votre fichier XML\n");
+        scanf("%s",xmlPath);
+        xmlFile = openFile(xmlPath);
+    }
+
+    while ( !dtdFile ){
+        printf("Rentrez le chemin de votre fichier DTD\n");
+        scanf("%s",dtdPath);
+        dtdFile = openFile(dtdPath);
+    }
 
     if ( !checkXML(FileinString(xmlPath))){
         printf("Il manque une balise fermante ou ouvrante\n");
@@ -31,7 +46,7 @@ int main() {
         return EXIT_FAILURE;
     }
 
-    printf("Le XML est conforme à la DTD");
+    printf("Le XML est conforme à la DTD\n");
     freeDTD(dtd);
     freeXML(xml);
 

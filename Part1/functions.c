@@ -8,8 +8,7 @@ FILE *openFile( char *filename ){
     FILE *pf;
     pf = fopen(filename, "r+b" ); //Ouverture du fichier
     if ( !pf ){
-        perror(filename); // Si le fichier n'a pas pu être ouvert print cette phrase
-        exit(EXIT_FAILURE);
+        return NULL;// Si le fichier n'a pas pu être ouvert print cette phrase
     }
     return pf;
 }

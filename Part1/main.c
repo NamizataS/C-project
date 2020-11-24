@@ -1,26 +1,38 @@
 #include "functions.h"
 
 int main() {
-    char *xmlPath = "./../recipe.xml";
-    char *dtdPath = "./../recipe.dtd";
-    Node *xml;
-    DTD *dtd;
+    char *xmlPath = malloc(sizeof(char)*100);
+    char *dtdPath = malloc(sizeof(char)*100);
 
-    xml = XMLinList(FileinString( xmlPath), xml);
+    FILE* xmlFile = NULL;
+    FILE *dtdFile = NULL;
+
+    while ( !xmlFile ){
+        printf("Rentrez le chemin de votre fichier XML\n");
+        scanf("%s",xmlPath);
+        xmlFile = openFile(xmlPath);
+    }
+
+    while ( !dtdFile ){
+        printf("Rentrez le chemin de votre fichier DTD\n");
+        scanf("%s",dtdPath);
+        dtdFile = openFile(dtdPath);
+    }
 
     if ( !checkXML(FileinString(xmlPath)) ){
         printf("Le fichier XML est mal formé\n");
-        return EXIT_FAILURE;
+        exit(EXIT_FAILURE);
     } else {
         printf("Le fichier XML est bien formé\n");
     }
 
-    dtd = DTDinList(FileinString( dtdPath),dtd);
+    Node *xml = XMLinList(FileinString( xmlPath), xml);
+    DTD *dtd = DTDinList(FileinString( dtdPath),dtd);
 
 
     if ( !checkDTD(dtd, FileinString(dtdPath)) ){
         printf("La DTD n'est pas valide\n");
-        return EXIT_FAILURE;
+        exit(EXIT_FAILURE);
     } else {
         printf("La DTD est valide\n");
     }
@@ -29,11 +41,12 @@ int main() {
         printf("Le fichier XML est conforme à la DTD\n");
     } else {
         printf("Le fichier XML n'est pas conforme à la DTD\n");
-        return EXIT_FAILURE;
+        exit(EXIT_FAILURE);
     }
 
     freeXML(xml);
     freeDTD(dtd);
+
 
     return EXIT_SUCCESS;
 }

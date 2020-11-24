@@ -35,7 +35,7 @@ typedef enum contentType contentType;
 typedef enum elementOccur elementOccur;
 typedef enum status status;
 
-struct Node {                   //structure pour représenter un noeud
+struct Node {
     char *name;
     struct xmlAttribute *attributes;
     struct Node *parent;
