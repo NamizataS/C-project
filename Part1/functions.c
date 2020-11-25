@@ -126,13 +126,13 @@ bool checkEnd( char *tag ){
 }
 
 void removeChar( char *string, char c ){
-    if (string != NULL ){
-        char *pr = string, *pw = string;
-        while ( *pr ){
-            *pw = *pr++;
-            pw += (*pw != c);
+    if (string != NULL && strchr(string,c) != NULL ){
+        char *read = string, *write = string;
+        while ( *read ){
+            *write = *read++;
+            write += (*write != c);
         }
-        *pw = '\0';
+        *write = '\0';
     }
 }
 

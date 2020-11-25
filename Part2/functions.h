@@ -29,7 +29,7 @@ enum elementOccur{
 enum status{
     REQUIRED = 0,
     IMPLIED = 1,
-    FIXED = 2
+    VALUE = 2
 };
 
 typedef enum contentType contentType;
@@ -195,12 +195,35 @@ bool checkAttributesinXML( DTD *dtd, Node *xml );
  * check if the attributes of the DTD are in the XML
  */
 
+bool checkValuesinXML( char *name, Values *value, xmlAttribute *attributes );
+/*
+ *
+ */
+
+bool checkValue( Values *value, char *name );
+/*
+ *
+ */
+
 bool checkAttributes( char *element, Attributes *attributes, Node *xml );
 /*
  *
  */
 
-void printDTD( DTD *dtd);
+bool checkAttributesinDTD( DTD *dtd, Node *xml );
+/*
+ *
+ */
+
+bool checkXMLAttributes( char *element, xmlAttribute *attributes, DTD *dtd );
+/*
+ *
+ */
+
+bool checkifInDTD( char *attribute, Attributes *dtdAttribute );
+/*
+ *
+ */
 
 //XML.C
 
@@ -262,10 +285,6 @@ Attributes *newEnumeratedAttribute( char *name, Values *values );
  * create a new enumerated attribute
  */
 
-bool updateStatus( char *status, Values *values );
-/*
- *
- */
 
 bool attributeisValid( DTD *dtd, char *element, Attributes *newAttribute );
 /*
@@ -278,19 +297,9 @@ bool fillAttribute( DTD *dtd, char *element, char *string );
  * fill a new attribute if the attributes for the same element are in the same block
  */
 
-bool enumeratedAttributeisValid( DTD *dtd, char *element, Attributes *newAttribute );
-/*
- *
- */
-
 Values *getValues( char *values, Values *newValues );
 /*
  * create a new linked list values
- */
-
-Values *newValues( char *name );
-/*
- * create a new Values
  */
 
 contentType getType( char *type );

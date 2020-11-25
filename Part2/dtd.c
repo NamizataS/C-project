@@ -104,9 +104,6 @@ bool attributesInList( DTD *dtd, char *string ){
                 }
             }
         }
-
-
-
     }
 
     return false;
@@ -174,43 +171,28 @@ Attributes *newEnumeratedAttribute( char *name, Values *values ){
     removeSpaceandTab( name );
     attribute->name = name;
     attribute->values = values;
-
+    attribute->status = VALUE;
     return attribute;
 }
 
-bool updateStatus( char *status, Values *values ){
-
-    while ( strchr(status,34) != NULL ){
-        removeChar(status,34);
-    }
-    removeSpaceandTab(status);
-    while ( values ){
-        if ( strcmp(status,values->name) == 0 ){
-            values->isDefault = true;
-            return true;
-        }
-        values = values->next;
-    }
-    return false;
-}
 
 bool attributeisValid( DTD *dtd, char *element, Attributes *newAttribute ){
 
     removeSpaceandTab(element);
-
     while ( dtd && dtd->name ){
         if ( strcmp(dtd->name,element) == 0 ){
             if ( dtd->attributes == NULL ){
                 dtd->attributes = newAttribute;
                 return true;
-            }
-            Attributes *current = dtd->attributes;
-            while ( current->next != NULL ){
-                current = current->next;
-            }
-            current->next = newAttribute;
+            } else {
+                Attributes *current = dtd->attributes;
+                while ( current->next != NULL ){
+                    current = current->next;
+                }
+                current->next = newAttribute;
 
-            return true;
+                return true;
+            }
         }
         if ( dtd->child != NULL ){
             dtd = dtd->child;
@@ -219,6 +201,7 @@ bool attributeisValid( DTD *dtd, char *element, Attributes *newAttribute ){
         }
 
     }
+
     return false;
 }
 
@@ -249,13 +232,6 @@ Values *getValues( char *values, Values *newValue ){
     return newValue;
 }
 
-Values *newValues( char *name ){
-    Values *newValue = malloc( sizeof(Values) );
-    newValue->name = name;
-    newValue->next = NULL;
-
-    return newValue;
-}
 contentType getType( char *type ){
 
     if ( strcmp(type,"CDATA") == 0 ){
@@ -274,9 +250,7 @@ status getStatus( char *status ){
     if ( strcmp( status,"#IMPLIED") == 0 ){
         return IMPLIED;
     }
-    if ( strstr(status, "#FIXED") != NULL ){
-        return FIXED;
-    }
+
     return 3;
 }
 

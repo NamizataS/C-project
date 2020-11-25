@@ -246,6 +246,7 @@ Attributes *newEnumeratedAttribute( char *name, Values *values ){
     removeSpaceandTab( name );
     attribute->name = name;
     attribute->values = values;
+    attribute->status = VALUE;
 
     return attribute;
 }

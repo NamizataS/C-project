@@ -214,11 +214,15 @@ bool checkAttributes( char *element, Attributes *attributes, Node *xml ){
 
     while ( xml && xml->name ){
         if ( strcmp(xml->name,element) == 0 ){
-            while ( attributes ){
-                if ( !checkStatusXML(attributes->status,attributes->name,xml->attributes)){
-                    return false;
+            if ( xml->attributes != NULL ){
+                while ( attributes ){
+                    if ( !checkStatusXML(attributes->status,attributes->name,xml->attributes)){
+                        return false;
+                    }
+                    attributes = attributes->next;
                 }
-                attributes = attributes->next;
+            } else{
+                return false;
             }
         }
         if ( xml->child != NULL ){

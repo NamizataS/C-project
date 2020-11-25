@@ -128,12 +128,12 @@ bool checkEnd( char *tag ){
 
 void removeChar( char *string, char c ){
     if (string != NULL && strchr(string,c) != NULL ){
-        char *pr = string, *pw = string;
-        while ( *pr ){
-            *pw = *pr++;
-            pw += (*pw != c);
+        char *read = string, *write = string;
+        while ( *read ){
+            *write = *read++;
+            write += (*write != c);
         }
-        *pw = '\0';
+        *write = '\0';
     }
 }
 
@@ -298,11 +298,19 @@ bool checkAttributes( char *element, Attributes *attributes, Node *xml ){
 
     while ( xml && xml->name ){
         if ( strcmp(xml->name,element) == 0 ){
-            while ( attributes ){
-                if ( !checkStatusXML(attributes->status,attributes->name,xml->attributes)){
-                    return false;
+            if ( xml->attributes != NULL ){
+                while ( attributes ){
+                    if ( attributes->status == VALUE ){
+                        if ( !checkValuesinXML(attributes->name,attributes->values,xml->attributes)){
+                            return false;
+                        }
+                    } else if ( !checkStatusXML(attributes->status,attributes->name,xml->attributes)){
+                        return false;
+                    }
+                    attributes = attributes->next;
                 }
-                attributes = attributes->next;
+            } else{
+                return false;
             }
         }
         if ( xml->child != NULL ){
@@ -312,6 +320,79 @@ bool checkAttributes( char *element, Attributes *attributes, Node *xml ){
         }
     }
     return true;
+}
+
+bool checkValuesinXML( char *name, Values *value, xmlAttribute *attributes ){
+    while ( attributes ){
+        if ( strcmp(attributes->name,name) == 0 ){
+            if(!checkValue( value, attributes->content )){
+                return false;
+            }
+        }
+        attributes = attributes->next;
+    }
+    return true;
+}
+
+bool checkValue( Values *value, char *name ){
+    while ( value ){
+        if ( strcmp(value->name,name) == 0 ){
+            return true;
+        }
+        value = value->next;
+    }
+    return false;
+}
+
+bool checkAttributesinDTD( DTD *dtd, Node *xml ){
+
+    while ( xml && xml->name ){
+        if ( xml->attributes != NULL ){
+            if ( !checkXMLAttributes( xml->name,xml->attributes,dtd) ){
+                return false;
+            }
+        }
+        if ( xml->child != NULL ){
+            xml = xml->child;
+        } else{
+            xml = xml->sibling;
+        }
+    }
+    return true;
+}
+
+bool checkXMLAttributes( char *element, xmlAttribute *attributes, DTD *dtd ){
+
+    while ( dtd && dtd->name ){
+        if ( strcmp(element, dtd->name) == 0 ){
+            if ( dtd->attributes != NULL ){
+                while ( attributes ){
+                    if ( !checkifInDTD( attributes->name,dtd->attributes) ){
+                        return false;
+                    }
+                    attributes = attributes->next;
+                }
+            }else{
+                return false;
+            }
+        }
+        if ( dtd->child != NULL ){
+            dtd = dtd->child;
+        } else {
+            dtd = dtd->sibling;
+        }
+    }
+    return true;
+}
+
+bool checkifInDTD( char *attribute, Attributes *dtdAttribute ){
+    while ( dtdAttribute ){
+        if ( strcmp(attribute,dtdAttribute->name) == 0 ){
+            return true;
+        }
+        dtdAttribute = dtdAttribute->next;
+    }
+    return false;
 }
 
 bool checkStatusXML( status status, char *string, xmlAttribute *attribute ){
@@ -339,14 +420,4 @@ bool checkStatusXML( status status, char *string, xmlAttribute *attribute ){
 
     }
     return false;
-}
-void printDTD( DTD *dtd){
-    while (dtd){
-        printf("%s\t%d",dtd->name,dtd->occurrence);
-        if (dtd->child != NULL ){
-            dtd = dtd->child;
-        } else {
-            dtd = dtd->sibling;
-        }
-    }
 }

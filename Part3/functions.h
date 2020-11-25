@@ -28,7 +28,7 @@ enum elementOccur{
 enum status{
     REQUIRED = 0,
     IMPLIED = 1,
-    FIXED = 2
+    VALUE = 2
 };
 
 typedef enum contentType contentType;
@@ -179,7 +179,7 @@ bool checkAttributesinXML( DTD *dtd, Node *xml );
 
 bool checkAttributes( char *element, Attributes *attributes, Node *xml );
 /*
- *
+ * check the nature of the attributes and it's in the xml
  */
 
 bool checkXMLandDTD( DTD *dtd, Node *xml );

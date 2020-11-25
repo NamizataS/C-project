@@ -10,13 +10,21 @@ int main() {
     while ( !xmlFile ){
         printf("Veuillez entrer le chemin de votre fichier XML\n");
         scanf("%s",xmlPath);
-        xmlFile = openFile(xmlPath);
+        if ( strstr(xmlPath,".xml") != NULL ){
+            xmlFile = openFile(xmlPath);
+        } else{
+            xmlFile = NULL;
+        }
     }
 
     while ( !dtdFile ){
         printf("Veuillez entrer le chemin de votre fichier DTD\n");
         scanf("%s",dtdPath);
-        dtdFile = openFile(dtdPath);
+        if ( strstr( dtdPath, ".dtd") != NULL ){
+            dtdFile = openFile(dtdPath);
+        }else{
+            dtdFile = NULL;
+        }
     }
 
     if ( !checkXML(FileinString(xmlPath)) ){
