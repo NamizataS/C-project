@@ -337,9 +337,7 @@ status getStatus( char *status ){
     if ( strcmp( status,"#IMPLIED") == 0 ){
         return IMPLIED;
     }
-    if ( strstr(status, "#FIXED") != NULL ){
-        return FIXED;
-    }
+
     return 3;
 }
 

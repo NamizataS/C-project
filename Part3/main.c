@@ -12,13 +12,13 @@ int main() {
     DTD *dtd;
 
     while ( !xmlFile ){
-        printf("Veuillez entrer le chemin de votre fichier XML\n");
+        printf("Rentrez le chemin de votre fichier XML\n");
         scanf("%s",xmlPath);
         xmlFile = openFile(xmlPath);
     }
 
     while ( !dtdFile ){
-        printf("Veuillez entrer le chemin de votre fichier DTD\n");
+        printf("Rentrez le chemin de votre fichier DTD\n");
         scanf("%s",dtdPath);
         dtdFile = openFile(dtdPath);
     }
@@ -37,7 +37,7 @@ int main() {
         printf("Les attributs ne sont pas au bon format ou ne correspondent à aucune balise exitante\n");
         return EXIT_FAILURE;
     }
-    if ( !checkAttributesinXML( dtd, xml ) ){
+    if ( !checkAttributesinXML( dtd, xml ) || !checkAttributesinDTD( dtd, xml )){
         printf("Les attributs ne sont pas bons\n");
         return EXIT_FAILURE;
     }

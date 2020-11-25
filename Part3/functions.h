@@ -207,6 +207,21 @@ bool checkOccurrenceXML( Node *xml, char *string, elementOccur occurrence);
  * check if there is the right amount of an element in the XML
  */
 
+bool checkAttributesinDTD( DTD *dtd, Node *xml );
+/*
+ * check if the attributes in the XML are really in the dtd
+ */
+
+bool checkXMLAttributes( char *element, xmlAttribute *attributes, DTD *dtd );
+/*
+ * used for the functions checkAttributesinDTD
+ */
+
+bool checkifInDTD( char *attribute, Attributes *dtdAttribute );
+/*
+ * check if the attribute is in the list of attributes of the DTD
+ */
+
 
 //XML.C
 bool checkXML( char *string );

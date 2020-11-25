@@ -316,3 +316,54 @@ bool checkOccurrenceXML( Node *xml, char *string, elementOccur occurrence){
     }
     return false;
 }
+
+bool checkAttributesinDTD( DTD *dtd, Node *xml ){
+
+    while ( xml && xml->name ){
+        if ( xml->attributes != NULL ){
+            if ( !checkXMLAttributes( xml->name,xml->attributes,dtd) ){
+                return false;
+            }
+        }
+        if ( xml->child != NULL ){
+            xml = xml->child;
+        } else{
+            xml = xml->sibling;
+        }
+    }
+    return true;
+}
+
+bool checkXMLAttributes( char *element, xmlAttribute *attributes, DTD *dtd ){
+
+    while ( dtd && dtd->name ){
+        if ( strcmp(element, dtd->name) == 0 ){
+            if ( dtd->attributes != NULL ){
+                while ( attributes ){
+                    if ( !checkifInDTD( attributes->name,dtd->attributes) ){
+                        return false;
+                    }
+                    attributes = attributes->next;
+                }
+            }else{
+                return false;
+            }
+        }
+        if ( dtd->child != NULL ){
+            dtd = dtd->child;
+        } else {
+            dtd = dtd->sibling;
+        }
+    }
+    return true;
+}
+
+bool checkifInDTD( char *attribute, Attributes *dtdAttribute ){
+    while ( dtdAttribute ){
+        if ( strcmp(attribute,dtdAttribute->name) == 0 ){
+            return true;
+        }
+        dtdAttribute = dtdAttribute->next;
+    }
+    return false;
+}
