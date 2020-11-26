@@ -4,5 +4,5 @@
 <recipe>
     <cake quantity="5" weight="30">Tarte aux pommes</cake>
     <cake quantity="4" weight="20">Fraisier</cake>
-    <cake quantity="2" weight="50">Tiramisu</cake>
+    <cake quantity="2" weight="10">Tiramisu</cake>
 </recipe>

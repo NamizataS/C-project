@@ -295,7 +295,6 @@ bool checkAttributesinXML( DTD *dtd, Node *xml ){
 }
 
 bool checkAttributes( char *element, Attributes *attributes, Node *xml ){
-
     while ( xml && xml->name ){
         if ( strcmp(xml->name,element) == 0 ){
             if ( xml->attributes != NULL ){

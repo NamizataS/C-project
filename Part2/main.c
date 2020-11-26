@@ -33,7 +33,6 @@ int main() {
         printf("Il manque une balise fermante ou ouvrante\n");
         return EXIT_FAILURE;
     }
-
     xml = XMLinList( FileinString(xmlPath),xml );
     dtd = DTDinList( FileinString(dtdPath), dtd);
 

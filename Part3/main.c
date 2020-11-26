@@ -33,6 +33,7 @@ int main() {
 
     if ( dtd == NULL ){
         printf("La DTD n'est pas valide\n");
+        return EXIT_FAILURE;
     }
 
     if ( !attributesInList( dtd, FileinString( dtdPath) ) ){
@@ -47,6 +48,7 @@ int main() {
 
     if ( ! checkXMLandDTD(dtd,xml) || !checkDTDandXML(dtd,xml) ){
         printf("Le XML n'est pas conforme à la DTD\n");
+        return EXIT_FAILURE;
     }
 
     printf("Le fichier XML est conforme à la DTD\n");

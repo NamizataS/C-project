@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE recipe SYSTEM "recipe.dtd"[]>
+
+<recipe category="cake">
+    <cake name="Fraisiers">
+        <pie>
+            <ingrediends>Flour</ingrediends>
+        </pie>
+        <ingrediends>Flour</ingrediends>
+        <ingrediends>Eggs</ingrediends>
+        <ingrediends>Strawberry</ingrediends>
+    </cake>
+    <pie name="Tarte aux pommes">
+        <ingrediends>Flour</ingrediends>
+        <ingrediends>Eggs</ingrediends>
+        <ingrediends>Apple</ingrediends>
+    </pie>
+</recipe>

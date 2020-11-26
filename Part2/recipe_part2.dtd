@@ -1,0 +1,7 @@
+<!DOCTYPE RECIPE[
+        <!ELEMENT recipe (cake+)>
+        <!ELEMENT cake (#PCDATA)>
+
+        <!ATTLIST cake quantity CDATA #REQUIRED
+            weight (10|20|30) 30>
+]>
